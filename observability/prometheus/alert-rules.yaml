@@ -1,0 +1,116 @@
+groups:
+  - name: fitweek_agents_models
+    rules:
+      - alert: FitWeekAgentSuccessRateLow
+        expr: min(fitweek:agent_success_rate_5m) < 0.90 and sum(increase(fitweek_agent_runs_total[5m])) >= 5
+        for: 5m
+        labels: {severity: warning, component: agent}
+        annotations: {summary: "Agent success rate below 90%", description: "Agent success rate is below the warning threshold with sufficient traffic.", runbook_url: "docs/reliability.md#agent-success-and-idempotency"}
+      - alert: FitWeekAgentSuccessRateCritical
+        expr: min(fitweek:agent_success_rate_5m) < 0.70 and sum(increase(fitweek_agent_runs_total[5m])) >= 5
+        for: 5m
+        labels: {severity: critical, component: agent}
+        annotations: {summary: "Agent success rate below 70%", description: "Agent success rate is below the critical threshold with sufficient traffic.", runbook_url: "docs/reliability.md#agent-success-and-idempotency"}
+      - alert: FitWeekModelConsecutiveFailures
+        expr: sum(increase(fitweek_model_invocations_total{outcome!="SUCCESS"}[5m])) >= 5 and sum(increase(fitweek_model_invocations_total{outcome="SUCCESS"}[5m])) == 0
+        for: 2m
+        labels: {severity: critical, component: model}
+        annotations: {summary: "Model provider has repeated failures", description: "At least five attempts failed in the short window without a success.", runbook_url: "docs/reliability.md#model-provider-and-schema-failures"}
+      - alert: FitWeekModelSchemaInvalidHigh
+        expr: max(fitweek:model_schema_invalid_rate_5m) > 0.10 and sum(increase(fitweek_model_attempts_total[5m])) >= 5
+        for: 5m
+        labels: {severity: warning, component: model}
+        annotations: {summary: "Model schema invalid rate high", description: "Schema-invalid responses exceed ten percent with sufficient attempts.", runbook_url: "docs/reliability.md#model-provider-and-schema-failures"}
+  - name: fitweek_orchestrator
+    rules:
+      - alert: FitWeekWorkerBacklogHigh
+        expr: max(fitweek_orchestrator_oldest_waiting_seconds) > 120
+        for: 2m
+        labels: {severity: warning, component: orchestrator}
+        annotations: {summary: "Worker backlog age exceeds 120 seconds", description: "The oldest process-local waiting work item is beyond the bounded threshold.", runbook_url: "docs/reliability.md#worker-backlog-and-expired-leases"}
+  - name: fitweek_calendar_tools
+    rules:
+      - alert: FitWeekCalendarWriteFailureHigh
+        expr: fitweek:calendar_write_failure_rate_5m > 0.05 and sum(increase(fitweek_tool_invocations_total{tool_id="CALENDAR_COMMIT"}[5m])) >= 5
+        for: 5m
+        labels: {severity: warning, component: calendar}
+        annotations: {summary: "Calendar write failure rate high", description: "Final Calendar write failures exceed five percent with sufficient traffic.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekCalendarWriteCircuitOpen
+        expr: increase(fitweek_tool_circuit_open_total{tool_id="CALENDAR_COMMIT"}[5m]) > 0
+        for: 1m
+        labels: {severity: critical, component: calendar}
+        annotations: {summary: "Calendar write Circuit open", description: "The Calendar write Circuit entered OPEN state.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekCalendarReadCircuitOpen
+        expr: increase(fitweek_tool_circuit_open_total{tool_id="CALENDAR_FREE_BUSY"}[5m]) > 0
+        for: 1m
+        labels: {severity: warning, component: calendar}
+        annotations: {summary: "Calendar read Circuit open", description: "The Calendar read Circuit entered OPEN state.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekCalendarManualOnlyHigh
+        expr: sum(increase(fitweek_tool_degraded_total{degradation_mode="MANUAL_ONLY"}[5m])) >= 3
+        for: 5m
+        labels: {severity: warning, component: calendar}
+        annotations: {summary: "Calendar manual-only degradation elevated", description: "Multiple Calendar flows required manual-only degradation.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekToolTimeoutRateHigh
+        expr: max(fitweek:tool_timeout_rate_5m) > 0.10 and sum(increase(fitweek_tool_attempts_total[5m])) >= 5
+        for: 5m
+        labels: {severity: warning, component: tool_gateway}
+        annotations: {summary: "Tool timeout rate high", description: "Tool timeouts exceed ten percent with sufficient attempts.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekToolDeadlineExceededHigh
+        expr: sum(increase(fitweek_tool_deadline_exceeded_total[5m])) >= 3
+        for: 2m
+        labels: {severity: warning, component: tool_gateway}
+        annotations: {summary: "Tool deadlines repeatedly exceeded", description: "Multiple Tool invocations exhausted their total deadline.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekToolBulkheadRejectionsHigh
+        expr: sum(increase(fitweek_tool_bulkhead_rejections_total[5m])) >= 3
+        for: 2m
+        labels: {severity: warning, component: tool_gateway}
+        annotations: {summary: "Tool bulkhead rejections elevated", description: "Per-Tool concurrency protection rejected multiple invocations.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekToolRetryBudgetExhausted
+        expr: sum(increase(fitweek_tool_retry_budget_exhausted_total[5m])) > 0
+        for: 1m
+        labels: {severity: warning, component: tool_gateway}
+        annotations: {summary: "Tool retry budget exhausted", description: "A bounded correlation retry budget was exhausted.", runbook_url: "docs/reliability.md#calendar-write-failures-and-tool-circuits"}
+      - alert: FitWeekIdempotencyConflictSpike
+        expr: sum(increase(fitweek_tool_invocations_total{error_category="IDEMPOTENCY_CONFLICT"}[5m])) >= 5
+        for: 5m
+        labels: {severity: warning, component: application}
+        annotations: {summary: "Idempotency conflicts elevated", description: "Controlled idempotency conflicts exceed the short-window baseline.", runbook_url: "docs/reliability.md#agent-success-and-idempotency"}
+  - name: fitweek_memory_security
+    rules:
+      - alert: FitWeekExpiredMemoryRecalled
+        expr: sum(increase(fitweek_memory_expired_recall_total[5m])) > 0
+        for: 1m
+        labels: {severity: critical, component: memory}
+        annotations: {summary: "Expired Memory recalled", description: "An expired Memory item was observed in a recall result.", runbook_url: "docs/reliability.md#memory-safety-and-degradation"}
+      - alert: FitWeekDeletedMemoryRecalled
+        expr: sum(increase(fitweek_memory_deleted_recall_total[5m])) > 0
+        for: 1m
+        labels: {severity: critical, component: memory}
+        annotations: {summary: "Deleted Memory recalled", description: "A deleted Memory item was observed in a recall result.", runbook_url: "docs/reliability.md#memory-safety-and-degradation"}
+      - alert: FitWeekNoMemoryRateHigh
+        expr: fitweek:memory_no_memory_rate_5m > 0.20 and sum(increase(fitweek_memory_queries_total[5m])) >= 5
+        for: 5m
+        labels: {severity: warning, component: memory}
+        annotations: {summary: "NO_MEMORY degradation rate high", description: "Memory queries degrade to NO_MEMORY above the bounded threshold.", runbook_url: "docs/reliability.md#memory-safety-and-degradation"}
+      - alert: FitWeekUnauthorizedToolCall
+        expr: sum(increase(fitweek_tool_invocations_total{error_category="PERMISSION"}[5m])) > 0
+        for: 1m
+        labels: {severity: critical, component: security}
+        annotations: {summary: "Unauthorized Tool call blocked", description: "The Tool Gateway rejected an unauthorized caller before adapter invocation.", runbook_url: "docs/reliability.md#unauthorized-tool-calls"}
+  - name: fitweek_observability
+    rules:
+      - alert: FitWeekTelemetryExporterDegraded
+        expr: sum(increase(fitweek_observability_degraded_total[5m])) > 0
+        for: 1m
+        labels: {severity: warning, component: observability}
+        annotations: {summary: "Telemetry exporter degraded", description: "A telemetry sink entered bounded degraded mode while business continued.", runbook_url: "docs/reliability.md#observability-exporter-failures"}
+      - alert: FitWeekMetricsEndpointUnavailable
+        expr: max(fitweek_metrics_endpoint_available) < 1
+        for: 2m
+        labels: {severity: warning, component: observability}
+        annotations: {summary: "Metrics endpoint unavailable", description: "The process-local Prometheus exposition is unavailable.", runbook_url: "docs/reliability.md#observability-exporter-failures"}
+      - alert: FitWeekStructuredLogSinkFailure
+        expr: sum(increase(fitweek_structured_log_sink_failures_total[5m])) > 0
+        for: 1m
+        labels: {severity: warning, component: observability}
+        annotations: {summary: "Structured log sink failure", description: "Structured log delivery failed without failing the business operation.", runbook_url: "docs/reliability.md#observability-exporter-failures"}

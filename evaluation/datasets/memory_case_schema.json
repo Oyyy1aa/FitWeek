@@ -1,0 +1,162 @@
+{
+  "$defs": {
+    "MemoryCaseInput": {
+      "additionalProperties": false,
+      "properties": {
+        "context_limit": {
+          "default": 8,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Context Limit",
+          "type": "integer"
+        },
+        "expected_recall_count": {
+          "default": 0,
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Expected Recall Count",
+          "type": "integer"
+        },
+        "memory_type": {
+          "default": "PREFERRED_LOCATION",
+          "title": "Memory Type",
+          "type": "string"
+        },
+        "query_failure_count": {
+          "default": 0,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Query Failure Count",
+          "type": "integer"
+        },
+        "scenario": {
+          "enum": [
+            "ACTIVE_RECALL",
+            "PENDING_REVIEW",
+            "REJECTED",
+            "DELETED",
+            "EXPIRED",
+            "TTL_BOUNDARY",
+            "DUPLICATE_CANDIDATE",
+            "CONFLICT_CANDIDATE",
+            "EVIDENCE",
+            "NO_MEMORY",
+            "CROSS_USER",
+            "CONTEXT_ORDER"
+          ],
+          "title": "Scenario",
+          "type": "string"
+        },
+        "valid_until_offset_seconds": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 86400,
+          "title": "Valid Until Offset Seconds"
+        }
+      },
+      "required": [
+        "scenario"
+      ],
+      "title": "MemoryCaseInput",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "pattern": "^(PLAN|MEM)-[0-9]{3}$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "category": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Category",
+      "type": "string"
+    },
+    "dataset_version": {
+      "maxLength": 40,
+      "minLength": 1,
+      "title": "Dataset Version",
+      "type": "string"
+    },
+    "description_code": {
+      "pattern": "^[A-Z0-9_]+$",
+      "title": "Description Code",
+      "type": "string"
+    },
+    "expected_invariants": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Expected Invariants",
+      "type": "array"
+    },
+    "expected_outcome": {
+      "enum": [
+        "SUCCEEDED",
+        "REJECTED"
+      ],
+      "title": "Expected Outcome",
+      "type": "string"
+    },
+    "expected_rejection_codes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Expected Rejection Codes",
+      "type": "array"
+    },
+    "input": {
+      "$ref": "#/$defs/MemoryCaseInput"
+    },
+    "schema_version": {
+      "maxLength": 40,
+      "minLength": 1,
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "seed": {
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Tags",
+      "type": "array"
+    },
+    "timezone": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Timezone",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "dataset_version",
+    "schema_version",
+    "category",
+    "description_code",
+    "seed",
+    "timezone",
+    "expected_outcome",
+    "expected_invariants",
+    "tags",
+    "input"
+  ],
+  "title": "MemoryEvaluationCase",
+  "type": "object"
+}

@@ -1,0 +1,80 @@
+version: phase-9a-ablations-v1
+modes:
+  - mode: FULL
+    memory_context_enabled: true
+    session_designer_enabled: true
+    calendar_availability_enabled: true
+    recovery_adjustment_enabled: true
+    model_enabled: true
+    safety_enabled: true
+    permission_gate_enabled: true
+    confirmation_gate_enabled: true
+    idempotency_enabled: true
+    memory_isolation_enabled: true
+    calendar_operation_key_enabled: true
+    plan_cas_enabled: true
+  - mode: NO_MEMORY_CONTEXT
+    memory_context_enabled: false
+    session_designer_enabled: true
+    calendar_availability_enabled: true
+    recovery_adjustment_enabled: true
+    model_enabled: true
+    safety_enabled: true
+    permission_gate_enabled: true
+    confirmation_gate_enabled: true
+    idempotency_enabled: true
+    memory_isolation_enabled: true
+    calendar_operation_key_enabled: true
+    plan_cas_enabled: true
+  - mode: DETERMINISTIC_SESSION_FALLBACK
+    memory_context_enabled: true
+    session_designer_enabled: false
+    calendar_availability_enabled: true
+    recovery_adjustment_enabled: true
+    model_enabled: true
+    safety_enabled: true
+    permission_gate_enabled: true
+    confirmation_gate_enabled: true
+    idempotency_enabled: true
+    memory_isolation_enabled: true
+    calendar_operation_key_enabled: true
+    plan_cas_enabled: true
+  - mode: MANUAL_ONLY_CALENDAR
+    memory_context_enabled: true
+    session_designer_enabled: true
+    calendar_availability_enabled: false
+    recovery_adjustment_enabled: true
+    model_enabled: true
+    safety_enabled: true
+    permission_gate_enabled: true
+    confirmation_gate_enabled: true
+    idempotency_enabled: true
+    memory_isolation_enabled: true
+    calendar_operation_key_enabled: true
+    plan_cas_enabled: true
+  - mode: NO_RECOVERY_ADJUSTMENT
+    memory_context_enabled: true
+    session_designer_enabled: true
+    calendar_availability_enabled: true
+    recovery_adjustment_enabled: false
+    model_enabled: true
+    safety_enabled: true
+    permission_gate_enabled: true
+    confirmation_gate_enabled: true
+    idempotency_enabled: true
+    memory_isolation_enabled: true
+    calendar_operation_key_enabled: true
+    plan_cas_enabled: true
+  - mode: TEMPLATE_ONLY
+    memory_context_enabled: true
+    session_designer_enabled: true
+    calendar_availability_enabled: true
+    recovery_adjustment_enabled: true
+    model_enabled: false
+    safety_enabled: true
+    permission_gate_enabled: true
+    confirmation_gate_enabled: true
+    idempotency_enabled: true
+    memory_isolation_enabled: true
+    calendar_operation_key_enabled: true
+    plan_cas_enabled: true

@@ -1,0 +1,12 @@
+"""Versioned behavior policy constants."""
+
+from decimal import Decimal
+
+BEHAVIOR_SUMMARY_POLICY_VERSION = "behavior-summary-policy-v1"
+DEFAULT_WINDOW_DAYS = 28
+MAX_WINDOW_DAYS = 56
+MIN_SIGNAL_OCCURRENCES = 3
+REPEAT_RATIO_THRESHOLD = Decimal("0.60")
+MIN_RPE_SAMPLES = 2
+HIGH_REPORTED_RPE_THRESHOLD = 8
+BEHAVIOR_PROPOSAL_TTL_DAYS = 30

@@ -1,0 +1,1 @@
+"""FitWeek test suite."""

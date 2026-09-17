@@ -1,0 +1,45 @@
+groups:
+  - name: fitweek_http
+    interval: 30s
+    rules:
+      - record: fitweek:http_success_rate_5m
+        expr: sum(rate(http_server_requests_total{status_class="2xx"}[5m])) / clamp_min(sum(rate(http_server_requests_total[5m])), 0.000000001)
+      - record: fitweek:http_5xx_rate_5m
+        expr: sum(rate(http_server_requests_total{status_class="5xx"}[5m])) / clamp_min(sum(rate(http_server_requests_total[5m])), 0.000000001)
+      - record: fitweek:http_p95_seconds_5m
+        expr: histogram_quantile(0.95, sum by (le) (rate(http_server_request_duration_seconds_bucket[5m])))
+  - name: fitweek_agents_models
+    interval: 30s
+    rules:
+      - record: fitweek:agent_success_rate_5m
+        expr: sum by (agent_type) (rate(fitweek_agent_runs_total{outcome="SUCCESS"}[5m])) / clamp_min(sum by (agent_type) (rate(fitweek_agent_runs_total[5m])), 0.000000001)
+      - record: fitweek:agent_p95_seconds_5m
+        expr: histogram_quantile(0.95, sum by (le, agent_type) (rate(fitweek_agent_run_duration_seconds_bucket[5m])))
+      - record: fitweek:model_failure_rate_5m
+        expr: sum by (provider_name) (rate(fitweek_model_invocations_total{outcome!="SUCCESS"}[5m])) / clamp_min(sum by (provider_name) (rate(fitweek_model_invocations_total[5m])), 0.000000001)
+      - record: fitweek:model_timeout_rate_5m
+        expr: sum by (provider_name) (rate(fitweek_model_timeouts_total[5m])) / clamp_min(sum by (provider_name) (rate(fitweek_model_attempts_total[5m])), 0.000000001)
+      - record: fitweek:model_schema_invalid_rate_5m
+        expr: sum by (provider_name) (rate(fitweek_model_schema_invalid_total[5m])) / clamp_min(sum by (provider_name) (rate(fitweek_model_attempts_total[5m])), 0.000000001)
+  - name: fitweek_tools
+    interval: 30s
+    rules:
+      - record: fitweek:tool_success_rate_5m
+        expr: sum by (tool_id) (rate(fitweek_tool_invocations_total{outcome="SUCCESS"}[5m])) / clamp_min(sum by (tool_id) (rate(fitweek_tool_invocations_total[5m])), 0.000000001)
+      - record: fitweek:tool_failure_rate_5m
+        expr: sum by (tool_id) (rate(fitweek_tool_invocations_total{outcome!="SUCCESS"}[5m])) / clamp_min(sum by (tool_id) (rate(fitweek_tool_invocations_total[5m])), 0.000000001)
+      - record: fitweek:tool_timeout_rate_5m
+        expr: sum by (tool_id) (rate(fitweek_tool_timeouts_total[5m])) / clamp_min(sum by (tool_id) (rate(fitweek_tool_attempts_total[5m])), 0.000000001)
+      - record: fitweek:tool_retry_rate_5m
+        expr: sum by (tool_id) (rate(fitweek_tool_retries_total[5m])) / clamp_min(sum by (tool_id) (rate(fitweek_tool_invocations_total[5m])), 0.000000001)
+      - record: fitweek:tool_p95_seconds_5m
+        expr: histogram_quantile(0.95, sum by (le, tool_id) (rate(fitweek_tool_duration_seconds_bucket[5m])))
+      - record: fitweek:calendar_write_failure_rate_5m
+        expr: sum(rate(fitweek_tool_invocations_total{tool_id="CALENDAR_COMMIT",outcome!="SUCCESS"}[5m])) / clamp_min(sum(rate(fitweek_tool_invocations_total{tool_id="CALENDAR_COMMIT"}[5m])), 0.000000001)
+  - name: fitweek_memory_recovery
+    interval: 30s
+    rules:
+      - record: fitweek:memory_no_memory_rate_5m
+        expr: sum(rate(fitweek_memory_no_memory_total[5m])) / clamp_min(sum(rate(fitweek_memory_queries_total[5m])), 0.000000001)
+      - record: fitweek:recovery_failure_rate_5m
+        expr: sum(rate(fitweek_recovery_applications_total{outcome!="SUCCESS"}[5m])) / clamp_min(sum(rate(fitweek_recovery_applications_total[5m])), 0.000000001)

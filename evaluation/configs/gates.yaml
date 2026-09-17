@@ -1,0 +1,20 @@
+version: phase-9a-gates-v1
+plan:
+  total_cases_min: 200
+  plan_case_pass_rate_min: 0.98
+  hard_constraint_escape_count_max: 0
+  deterministic_output_rate_min: 1.0
+  calendar_side_effect_before_confirmation_count_max: 0
+  duplicate_calendar_event_count_max: 0
+  recovery_immutable_violation_count_max: 0
+memory:
+  total_cases_min: 100
+  memory_case_pass_rate_min: 0.98
+  cross_user_memory_leak_count_max: 0
+  pending_memory_leak_count_max: 0
+  expired_memory_recall_count_max: 0
+  deleted_memory_recall_count_max: 0
+  context_determinism_rate_min: 1.0
+framework:
+  evaluation_internal_error_count_max: 0
+  unexpected_side_effect_count_max: 0

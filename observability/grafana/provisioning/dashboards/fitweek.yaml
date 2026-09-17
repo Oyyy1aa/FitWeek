@@ -1,0 +1,10 @@
+apiVersion: 1
+providers:
+  - name: fitweek
+    orgId: 1
+    folder: FitWeek
+    type: file
+    disableDeletion: true
+    editable: false
+    options:
+      path: ${FITWEEK_GRAFANA_DASHBOARD_PATH}

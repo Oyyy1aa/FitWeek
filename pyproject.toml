@@ -1,0 +1,105 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fitweek"
+version = "0.1.0"
+description = "Persistent multi-agent backend prototype for controlled training-plan workflows"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "alembic>=1.14,<2",
+    "asyncmy>=0.2.10,<1",
+    "cryptography>=49,<50",
+    "fastapi>=0.115,<1",
+    "httpx>=0.28,<1",
+    "opentelemetry-api>=1.35,<2",
+    "opentelemetry-sdk>=1.35,<2",
+    "prometheus-client>=0.22,<1",
+    "pyyaml>=6,<7",
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.7,<3",
+    "redis>=5.2,<8",
+    "sqlalchemy[asyncio]>=2.0.36,<3",
+    "tzdata>=2026.3; sys_platform == 'win32'",
+    "uvicorn[standard]>=0.34,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.14,<2",
+    "pytest>=8.3,<9",
+    "pytest-asyncio>=0.25,<1",
+    "ruff>=0.9,<1",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+norecursedirs = [".*", "dist", "*.egg", "venv", ".venv"]
+markers = [
+    "integration: requires isolated MySQL or Redis test infrastructure",
+    "phase_1a: deterministic in-memory business-core tests",
+    "phase_1a1: deterministic rule-driven plan-generator tests",
+    "phase_1a2: check-in and deterministic local-replanning tests",
+    "phase_2a: single-process in-memory orchestrator tests",
+    "phase_3a: model-gateway and Profile Agent contract tests",
+    "phase_3b: Profile Draft review, apply, reject, and orchestrator tests",
+    "phase_4a: in-memory Memory Service and deterministic Context Builder tests",
+    "phase_4b: Memory-aware Agent and orchestrator integration tests",
+    "phase_5a: controlled Session Designer Agent contract tests",
+    "phase_5b: Session Designer Plan Revision and orchestrator integration tests",
+    "phase_6a: controlled Schedule Draft and time-conflict contract tests",
+    "phase_6b: Schedule Apply, ICS, and Calendar operation integration tests",
+    "phase_7a: deterministic behavior summary and controlled Recovery Draft tests",
+    "phase_7b: Recovery Plan application, Memory Candidate, and orchestrator tests",
+    "phase_8a: explicit Tool Gateway and resilience-control-plane tests",
+    "phase_8b1: OpenTelemetry, Prometheus, and structured-logging tests",
+    "phase_8b2: Grafana dashboards, Prometheus rules, alert routing, and incident drills",
+    "phase_9a: offline evaluation datasets, gates, determinism, and controlled ablations",
+    "phase_9a1: Phase 9A.1 cross-machine portability and test-infrastructure hardening",
+]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+exclude = [
+    ".git",
+    ".venv",
+    ".venv.*",
+    "venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".pytest-basetemp*",
+    ".mypy_cache",
+    ".ruff_cache",
+    "*.egg-info",
+    "dist",
+    "build",
+]
+
+[tool.ruff.lint]
+select = ["ASYNC", "B", "E", "F", "I", "UP"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["app"]
+exclude = [
+    "(^|/)\\.venv($|/)",
+    "(^|/)venv($|/)",
+    "(^|/)__pycache__($|/)",
+    "(^|/)\\.mypy_cache($|/)",
+    "(^|/)\\.pytest_cache($|/)",
+]
+plugins = ["pydantic.mypy"]

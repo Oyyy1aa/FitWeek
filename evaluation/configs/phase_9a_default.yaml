@@ -1,0 +1,9 @@
+version: phase-9a-default-v1
+seed: 20260722
+timezone: UTC
+deterministic_repetitions: 3
+case_timeout_seconds: 10
+network_access: disabled
+model_provider: deterministic_local_only
+persistence_backend: memory
+redis_enabled: false

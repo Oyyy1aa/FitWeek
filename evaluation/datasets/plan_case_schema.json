@@ -1,0 +1,231 @@
+{
+  "$defs": {
+    "PlanCaseInput": {
+      "additionalProperties": false,
+      "properties": {
+        "calendar_mode": {
+          "default": "VERIFIED",
+          "enum": [
+            "VERIFIED",
+            "MANUAL_ONLY"
+          ],
+          "title": "Calendar Mode",
+          "type": "string"
+        },
+        "catalog_mode": {
+          "default": "STANDARD",
+          "enum": [
+            "STANDARD",
+            "DISABLED_ONLY",
+            "EMPTY"
+          ],
+          "title": "Catalog Mode",
+          "type": "string"
+        },
+        "constraints": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PlanConstraintFixture"
+          },
+          "title": "Constraints",
+          "type": "array"
+        },
+        "expected_plan_version": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Expected Plan Version",
+          "type": "integer"
+        },
+        "experience_level": {
+          "title": "Experience Level",
+          "type": "string"
+        },
+        "history_mode": {
+          "default": "NONE",
+          "enum": [
+            "NONE",
+            "COMPLETED",
+            "CHECKED_IN"
+          ],
+          "title": "History Mode",
+          "type": "string"
+        },
+        "location": {
+          "default": "HOME",
+          "title": "Location",
+          "type": "string"
+        },
+        "max_session_minutes": {
+          "title": "Max Session Minutes",
+          "type": "integer"
+        },
+        "primary_goal": {
+          "title": "Primary Goal",
+          "type": "string"
+        },
+        "schedule_variant": {
+          "default": "VALID",
+          "enum": [
+            "VALID",
+            "OVERLAP"
+          ],
+          "title": "Schedule Variant",
+          "type": "string"
+        },
+        "scope_confirmed": {
+          "default": true,
+          "title": "Scope Confirmed",
+          "type": "boolean"
+        },
+        "slot_count": {
+          "default": 5,
+          "maximum": 7,
+          "minimum": 0,
+          "title": "Slot Count",
+          "type": "integer"
+        },
+        "slot_duration_minutes": {
+          "default": 60,
+          "maximum": 120,
+          "minimum": 1,
+          "title": "Slot Duration Minutes",
+          "type": "integer"
+        },
+        "weekly_frequency": {
+          "title": "Weekly Frequency",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weekly_frequency",
+        "max_session_minutes",
+        "experience_level",
+        "primary_goal"
+      ],
+      "title": "PlanCaseInput",
+      "type": "object"
+    },
+    "PlanConstraintFixture": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint_type": {
+          "title": "Constraint Type",
+          "type": "string"
+        },
+        "is_hard": {
+          "default": true,
+          "title": "Is Hard",
+          "type": "boolean"
+        },
+        "priority": {
+          "default": 100,
+          "minimum": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "value_code": {
+          "title": "Value Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "constraint_type",
+        "value_code"
+      ],
+      "title": "PlanConstraintFixture",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "pattern": "^(PLAN|MEM)-[0-9]{3}$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "category": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Category",
+      "type": "string"
+    },
+    "dataset_version": {
+      "maxLength": 40,
+      "minLength": 1,
+      "title": "Dataset Version",
+      "type": "string"
+    },
+    "description_code": {
+      "pattern": "^[A-Z0-9_]+$",
+      "title": "Description Code",
+      "type": "string"
+    },
+    "expected_invariants": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Expected Invariants",
+      "type": "array"
+    },
+    "expected_outcome": {
+      "enum": [
+        "SUCCEEDED",
+        "REJECTED"
+      ],
+      "title": "Expected Outcome",
+      "type": "string"
+    },
+    "expected_rejection_codes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Expected Rejection Codes",
+      "type": "array"
+    },
+    "input": {
+      "$ref": "#/$defs/PlanCaseInput"
+    },
+    "schema_version": {
+      "maxLength": 40,
+      "minLength": 1,
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "seed": {
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Tags",
+      "type": "array"
+    },
+    "timezone": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Timezone",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "dataset_version",
+    "schema_version",
+    "category",
+    "description_code",
+    "seed",
+    "timezone",
+    "expected_outcome",
+    "expected_invariants",
+    "tags",
+    "input"
+  ],
+  "title": "PlanEvaluationCase",
+  "type": "object"
+}

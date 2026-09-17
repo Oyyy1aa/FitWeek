@@ -1,0 +1,16 @@
+{
+  "ablation_modes": [
+    "FULL",
+    "NO_MEMORY_CONTEXT",
+    "DETERMINISTIC_SESSION_FALLBACK",
+    "MANUAL_ONLY_CALENDAR",
+    "NO_RECOVERY_ADJUSTMENT",
+    "TEMPLATE_ONLY"
+  ],
+  "ablation_result": "evaluation/reports/phase-9a-ablation-results.json",
+  "dataset_version": "phase-9a-benchmark-v1",
+  "memory_result": "evaluation/reports/phase-9a-memory-results.json",
+  "phase": "PHASE 9A",
+  "plan_result": "evaluation/reports/phase-9a-plan-results.json",
+  "zero_tolerance_passed": true
+}

@@ -1,0 +1,19 @@
+{
+  "title": "FitWeek Alert Notification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["alert_name", "status", "severity", "component", "summary", "safe_description", "runbook_id", "started_at", "resolved_at", "routing_receiver", "fingerprint"],
+  "properties": {
+    "alert_name": {"type": "string", "maxLength": 128},
+    "status": {"enum": ["FIRING", "RESOLVED"]},
+    "severity": {"enum": ["warning", "critical"]},
+    "component": {"type": "string", "maxLength": 64},
+    "summary": {"type": "string", "maxLength": 200},
+    "safe_description": {"type": "string", "maxLength": 500},
+    "runbook_id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "started_at": {"type": "string", "format": "date-time"},
+    "resolved_at": {"type": ["string", "null"], "format": "date-time"},
+    "routing_receiver": {"enum": ["default", "warning", "critical", "security", "calendar", "observability"]},
+    "fingerprint": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "case_id": "P5A-001",
+    "category": "valid",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-002",
+    "category": "valid",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-003",
+    "category": "valid",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-004",
+    "category": "valid",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-005",
+    "category": "valid",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-006",
+    "category": "outside_candidate",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-007",
+    "category": "outside_candidate",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-008",
+    "category": "outside_candidate",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-009",
+    "category": "outside_candidate",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-010",
+    "category": "outside_candidate",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-011",
+    "category": "invented_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-012",
+    "category": "invented_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-013",
+    "category": "invented_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-014",
+    "category": "invented_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-015",
+    "category": "invented_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-016",
+    "category": "duplicate_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-017",
+    "category": "duplicate_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-018",
+    "category": "duplicate_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-019",
+    "category": "duplicate_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-020",
+    "category": "duplicate_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-021",
+    "category": "disabled_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-022",
+    "category": "disabled_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-023",
+    "category": "disabled_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-024",
+    "category": "disabled_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-025",
+    "category": "disabled_exercise",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-026",
+    "category": "equipment_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-027",
+    "category": "equipment_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-028",
+    "category": "equipment_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-029",
+    "category": "equipment_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-030",
+    "category": "equipment_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-031",
+    "category": "location_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-032",
+    "category": "location_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-033",
+    "category": "location_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-034",
+    "category": "location_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-035",
+    "category": "location_mismatch",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-036",
+    "category": "excluded_feature",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-037",
+    "category": "excluded_feature",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-038",
+    "category": "excluded_feature",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-039",
+    "category": "excluded_feature",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-040",
+    "category": "excluded_feature",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-041",
+    "category": "beginner_difficulty",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-042",
+    "category": "beginner_difficulty",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-043",
+    "category": "beginner_difficulty",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-044",
+    "category": "beginner_difficulty",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-045",
+    "category": "beginner_difficulty",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-046",
+    "category": "invalid_schema",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-047",
+    "category": "invalid_schema",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-048",
+    "category": "invalid_schema",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-049",
+    "category": "invalid_schema",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-050",
+    "category": "invalid_schema",
+    "expected_contract_accepted": false
+  },
+  {
+    "case_id": "P5A-051",
+    "category": "duration_boundary",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-052",
+    "category": "duration_boundary",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-053",
+    "category": "duration_boundary",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-054",
+    "category": "duration_boundary",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-055",
+    "category": "duration_boundary",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-056",
+    "category": "fallback",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-057",
+    "category": "fallback",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-058",
+    "category": "fallback",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-059",
+    "category": "fallback",
+    "expected_contract_accepted": true
+  },
+  {
+    "case_id": "P5A-060",
+    "category": "fallback",
+    "expected_contract_accepted": true
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "datasets": [
+    {
+      "case_count": 200,
+      "dataset_name": "plan",
+      "dataset_version": "phase-9a-benchmark-v1",
+      "generated_at": "2026-07-22T08:00:00Z",
+      "generator_version": "phase-9a-generator-v1",
+      "path": "evaluation/datasets/plan_cases.jsonl",
+      "schema_version": "phase-9a-schema-v1",
+      "sha256": "a8c643073a53185a3c3e26f1f57ae42725d81bfec1ebda8eb4e481ffc21f37ca"
+    },
+    {
+      "case_count": 108,
+      "dataset_name": "memory",
+      "dataset_version": "phase-9a-benchmark-v1",
+      "generated_at": "2026-07-22T08:00:00Z",
+      "generator_version": "phase-9a-generator-v1",
+      "path": "evaluation/datasets/memory_cases.jsonl",
+      "schema_version": "phase-9a-schema-v1",
+      "sha256": "a0e414f4eabbfaf47fc5b67a7d6c3877a2343b33e0564e59d62cdb42bdd0c783"
+    }
+  ],
+  "manifest_version": "phase-9a-dataset-manifest-v1"
+}

@@ -1,0 +1,19 @@
+{
+  "dataset_version": "phase-9a-benchmark-v1",
+  "memory": {
+    "context_determinism_rate": 1.0,
+    "cross_user_memory_leak_count": 0,
+    "deleted_memory_recall_count": 0,
+    "expired_memory_recall_count": 0,
+    "memory_case_pass_rate": 1.0,
+    "pending_memory_leak_count": 0
+  },
+  "plan": {
+    "calendar_side_effect_before_confirmation_count": 0,
+    "deterministic_output_rate": 1.0,
+    "duplicate_calendar_event_count": 0,
+    "hard_constraint_escape_count": 0,
+    "plan_case_pass_rate": 1.0,
+    "recovery_immutable_violation_count": 0
+  }
+}

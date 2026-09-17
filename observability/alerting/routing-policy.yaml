@@ -1,0 +1,21 @@
+version: alert-routing-v1
+default_receiver: default
+receivers:
+  - {name: default, type: in_memory}
+  - {name: warning, type: in_memory}
+  - {name: critical, type: in_memory}
+  - {name: security, type: in_memory}
+  - {name: calendar, type: in_memory}
+  - {name: observability, type: in_memory}
+routes:
+  - {match: {severity: critical, component: security}, receiver: security, priority: 100}
+  - {match: {severity: critical}, receiver: critical, priority: 90}
+  - {match: {component: calendar}, receiver: calendar, priority: 70}
+  - {match: {component: observability}, receiver: observability, priority: 70}
+  - {match: {severity: warning}, receiver: warning, priority: 50}
+notification_policy:
+  pending: disabled
+  firing: once_per_fingerprint_and_status
+  resolved: once_per_fingerprint_and_status
+  reminder: disabled
+  maximum_attempts: 1
