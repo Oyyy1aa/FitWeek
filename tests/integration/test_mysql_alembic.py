@@ -1,6 +1,5 @@
 """Alembic upgrade/downgrade cycle against an isolated MySQL database."""
 
-import asyncio
 import os
 import subprocess
 import sys
@@ -187,16 +186,17 @@ def test_orchestration_status_capacity_offline_sql_is_reversible() -> None:
 
 
 @pytest.mark.integration
-def test_mysql_alembic_upgrade_downgrade_cycle(
+@pytest.mark.asyncio
+async def test_mysql_alembic_upgrade_downgrade_cycle(
     mysql_test_database: Database, mysql_test_url: str
 ) -> None:
     run_alembic(mysql_test_url, "upgrade", "head")
     head_revision = run_alembic(mysql_test_url, "heads").stdout.split()[0]
     assert head_revision in run_alembic(mysql_test_url, "current").stdout
-    user_id, run_id, step_id = asyncio.run(_seed_checkpoint(mysql_test_database))
+    user_id, run_id, step_id = await _seed_checkpoint(mysql_test_database)
     try:
         run_alembic(mysql_test_url, "downgrade", "0006_schedule_draft")
-        legacy_tables = asyncio.run(table_names(mysql_test_url))
+        legacy_tables = await table_names(mysql_test_url)
         assert "checkpoint" in legacy_tables
         assert "planning_checkpoint" not in legacy_tables
 
@@ -210,13 +210,11 @@ def test_mysql_alembic_upgrade_downgrade_cycle(
             "planning_checkpoint",
             "audit_event",
             "ics_export",
-        } <= asyncio.run(table_names(mysql_test_url))
-        checkpoints = asyncio.run(
-            MySQLOrchestrationRepository(
-                mysql_test_database.session_factory
-            ).list_checkpoints(run_id)
-        )
+        } <= await table_names(mysql_test_url)
+        checkpoints = await MySQLOrchestrationRepository(
+            mysql_test_database.session_factory
+        ).list_checkpoints(run_id)
         assert len(checkpoints) == 1
         assert checkpoints[0].step_id == step_id
     finally:
-        asyncio.run(_cleanup_seeded_user(mysql_test_database, user_id))
+        await _cleanup_seeded_user(mysql_test_database, user_id)

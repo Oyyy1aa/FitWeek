@@ -7,7 +7,10 @@ from pydantic_core import ValidationError
 from app.config import PersistenceBackend, Settings
 
 
-def test_default_configuration_loads_without_environment() -> None:
+def test_default_configuration_loads_without_environment(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("REDIS_ENABLED", raising=False)
     settings = Settings(_env_file=None)
 
     assert settings.app_name == "FitWeek"
